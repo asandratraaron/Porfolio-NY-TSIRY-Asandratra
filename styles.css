@@ -188,6 +188,13 @@ body {
   .navbar-center { display: none; }
   .desktop-only { display: none; }
   .mobile-only { display: inline-flex; }
+
+  .navbar {
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    margin: 10px 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -447,10 +454,10 @@ body {
 /* Mobile */
 @media (max-width: 480px) {
   .btn {
-    width: 100%;
+    width: 75%;
+    max-width: 260px;
     text-align: center;
   }
-
 }
 
 /* Zoom au hover */
@@ -824,15 +831,33 @@ body {
   .slide{
     flex-direction:column;
     text-align:center;
+    padding: 20px;
+    gap: 20px;
   }
 
-  .slide img,
+  .slide img{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 15px;
+  }
+
+  .slide video{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    border-radius: 15px;
+  }
+
   .content{
-    width:100%;
+    width: 100%;
   }
 
-  .slide{
-    padding:20px;
+  .buttons{
+    z-index: 10;
   }
 }
 
@@ -981,6 +1006,7 @@ body {
   .apropos-container{
     grid-template-columns:1fr;
     gap:40px;
+    width: calc(100% - 32px);
   }
 
   .apropos-photo{
@@ -988,6 +1014,16 @@ body {
     margin:auto;
   }
 
+}
+
+@media (max-width:480px){
+  .apropos-container{
+    width: calc(100% - 20px);
+  }
+
+  .timeline-item{
+    padding: 18px 14px;
+  }
 }
 
 .timeline-logo{
@@ -1001,44 +1037,38 @@ body {
 @media (max-width:768px){
 
   .timeline-item{
-  
-  display:grid;
-  
-  grid-template-columns:60px 1fr;
-  
-  grid-template-areas:
-  "logo date"
-  "logo content";
-  
-  align-items:start;
-  
-  gap:10px;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    grid-template-areas:
+      "logo date"
+      "content content";
+    align-items: start;
+    gap: 8px 12px;
   }
-  
 
-  /* LOGO à gauche */
-  
   .timeline-logo{
-  grid-area:logo;
-  width:50px;
-  margin:0;
+    grid-area: logo;
+    width: auto;
+    height: auto;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+    margin: 0;
+    display: block;
   }
-  
-  /* DATE en haut */
-  
+
   .timeline-date{
-  grid-area:date;
-  padding-top:0;
-  min-width:auto;
+    grid-area: date;
+    padding-top: 0;
+    min-width: auto;
+    align-self: center;
   }
-  
-  /* TEXTE */
-  
+
   .timeline-content{
-  grid-area:content;
+    grid-area: content;
   }
-  
-  }
+
+}
 
   .timeline-link{
     text-decoration:none;
@@ -1375,6 +1405,7 @@ body {
   /* SECTION A PROPOS */
   .apropos-container{
     gap:30px;
+    width: calc(100% - 16px);
   }
 
   .apropos-photo img{

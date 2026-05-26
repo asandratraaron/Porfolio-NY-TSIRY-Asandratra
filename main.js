@@ -65,9 +65,84 @@ document.getElementById("prev").addEventListener("click", () => {
   updateSlide();
 });
 
-function updateSlide(){
-  slides.style.transform = `translateX(-${index * 100}%)`;
+function pauseAllVideos() {
+  document.querySelectorAll('.carousel video').forEach(v => {
+    v.pause();
+    v.currentTime = 0;
+  });
 }
+
+function updateSlide(){
+  pauseAllVideos();
+  slides.style.transform = `translateX(-${index * 100}%)`;
+  positionButtonsMobile();
+}
+
+document.querySelectorAll('.carousel video').forEach(video => {
+  video.addEventListener('play', () => {
+    document.querySelectorAll('.carousel video').forEach(v => {
+      if (v !== video) { v.pause(); v.currentTime = 0; }
+    });
+  });
+});
+
+function addSwipeToCarousel() {
+  const carousel = document.querySelector('.carousel');
+  if (!carousel) return;
+
+  let touchStartX = 0;
+
+  carousel.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  carousel.addEventListener('touchend', (e) => {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) < 50) return;
+    if (delta > 0) {
+      index = (index + 1) % totalSlides;
+    } else {
+      index = (index - 1 + totalSlides) % totalSlides;
+    }
+    updateSlide();
+  }, { passive: true });
+}
+
+addSwipeToCarousel();
+
+function positionButtonsMobile() {
+  const buttons = document.querySelector('.buttons');
+  const carousel = document.querySelector('.carousel');
+  if (!buttons || !carousel) return;
+
+  if (window.innerWidth > 768) {
+    buttons.style.top = '';
+    buttons.style.transform = '';
+    return;
+  }
+
+  const allSlides = document.querySelectorAll('.slide');
+  const currentSlide = allSlides[index];
+  if (!currentSlide) return;
+
+  const media = currentSlide.querySelector('img, video');
+  if (!media) return;
+
+  const mediaRect = media.getBoundingClientRect();
+  if (mediaRect.height === 0) {
+    media.addEventListener('load', positionButtonsMobile, { once: true });
+    media.addEventListener('loadedmetadata', positionButtonsMobile, { once: true });
+    return;
+  }
+
+  const carouselRect = carousel.getBoundingClientRect();
+  const mediaTopInCarousel = mediaRect.top - carouselRect.top;
+  buttons.style.top = (mediaTopInCarousel + mediaRect.height / 2) + 'px';
+  buttons.style.transform = 'translateY(-50%)';
+}
+
+window.addEventListener('load', positionButtonsMobile);
+window.addEventListener('resize', positionButtonsMobile);
 
 
 const cards = document.querySelectorAll(".skill-card");
