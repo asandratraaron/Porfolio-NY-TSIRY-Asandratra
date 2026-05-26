@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio AN</title>
+    <link rel="icon" href="photos/logo_Aro.png" type="image/png">
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- (Optionnel) Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a class="navbar-left" href="#accueil" aria-label="Accueil">
+      <img src="photos/logo_Aro.png" alt="Logo AN" class="logo">
+    </a>
+
+    <nav class="navbar-center" aria-label="Navigation principale">
+      <a href="#accueil">Accueil</a>
+      <a href="#realisations">Mes réalisations</a>
+      <a href="#competences">Compétences</a>
+      <a href="#apropos">À propos</a>
+    </nav>
+
+    <div class="navbar-right">
+      <!-- Icônes desktop -->
+      <a class="icon-link desktop-only" href="https://www.linkedin.com/in/asandratra-ny-tsiry-15b055182/" target="_blank" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a class="icon-link desktop-only" href="https://mail.google.com/mail/?view=cm&fs=1&to=asandratranytsiry@gmail.com" target="_blank" aria-label="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+
+      <!-- Burger mobile -->
+      <button
+        class="hamburger mobile-only"
+        id="menu-toggle"
+        type="button"
+        aria-label="Ouvrir le menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MENU MOBILE -->
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menu mobile">
+    <a href="#accueil" class="mobile-link">Accueil</a>
+    <a href="#realisations" class="mobile-link">Mes réalisations</a>
+    <a href="#compétences" class="mobile-link">Compétences</a>
+    <a href="#apropos" class="mobile-link">À propos</a>
+
+    <div class="mobile-icons">
+      <a class="icon-link" href="https://www.linkedin.com/in/asandratra-ny-tsiry-15b055182/" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a class="icon-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=asandratranytsiry@gmail.com" target="_blank" aria-label="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO ACCUEIL -->
+  <section class="hero" id="accueil">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1 class="wave-text">
+
+        <span class="word">
+        <span>B</span><span>i</span><span>e</span><span>n</span><span>v</span><span>e</span><span>n</span><span>u</span><span>e</span>
+        </span>
+        
+        <span class="word">
+        <span>s</span><span>u</span><span>r</span>
+        </span>
+        
+        <span class="word">
+        <span>m</span><span>o</span><span>n</span>
+        </span>
+        
+        <span class="word">
+        <span>s</span><span>i</span><span>t</span><span>e</span>
+        </span>
+        
+        </h1>
+    <p class="hero-subtitle typewriter" id="typewriter">
+        Ensemble, créons des stratégies digitales qui renforcent votre présence en ligne, captivent votre audience et stimulent votre croissance avec des approches adaptées et efficaces.
+      </p>
+        <div class="hero-cta">
+            <a href="cv.pdf" class="btn btn-secondary" download>
+              <svg class="btn-trace" aria-hidden="true"><rect class="btn-trace-rect"/></svg>
+              Télécharger CV
+            </a>
+
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=asandratranytsiry@gmail.com" target="_blank" class="btn btn-primary">
+              <svg class="btn-trace" aria-hidden="true"><rect class="btn-trace-rect"/></svg>
+              Me contacter
+            </a>
+          </div>
+          
+    </div>
+
+    <div class="scroll-pill" id="realisations">
+        <span class="scroll-arrow"></span>
+      </div>
+        
+</section>
+  <script src="main.js"></script>
+
+
+<section class="realisations" id="realisations">
+  <div class="realisations-title">
+    <div class="stacked-title">
+      <div class="stack title-top">Mes</div>
+      <div class="stack title-bottom">Réalisations</div>
+    </div>
+  </div>
+
+  <!-- contenu des réalisations ici -->
+  <div class="realisations-cards">
+    <a href="affiche.html" class="real-card">
+      <div class="real-card__media" style="background-image: url('photos/Design/heineken.jpg');"></div>
+      <div class="real-card__content">
+        <h3>Communication & Design</h3>
+        <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Création de supports de communication + campagne/stratégie marketing, régie vidéo, montage audio et son, retouche et habillage de contenus multimédias.</p>
+      </div>
+    </a>
+  
+    <a href="site.html" class="real-card">
+      <div class="real-card__media" style="background-image: url('photos/site/fond_site.png');"></div>
+      <div class="real-card__content">
+        <h3>Site web & Applications</h3>
+        <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Conception de sites web, analyse UX/UI (design, A/B testing, conversion, growth hacking...), optimisation SEO/SEA, gestion et analyse de campagnes Google Ads, rédaction web et stratégies digitales.</p>
+      </div>
+    </a>
+  
+    <a href="photographie.html" class="real-card">
+      <div class="real-card__media" style="background-image: url('photos/photographie/album3/393.jpg');"></div>
+      <div class="real-card__content">
+        <h3>Photographie</h3>
+        <p style="text-align: justify;">Prise et retouche de photos professionnelles : produits, événements, portraits et contenus web, portfolios...</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="competences" id="competences">
+  <div class="competences-title">
+    <div class="stacked-title">
+      <div class="stack title-top">Mes</div>
+      <div class="stack title-bottom">compétences</div>
+    </div>
+  
+  </div>
+</section>
+
+
+<section class="skills">
+
+  <div class="skills-grid">
+  
+<div class="skill-card">
+  <span class="skill-number">#01</span>
+  <h3>Bureautique & Productivité</h3>
+  <p>
+    Word (avancé)<br>
+    Excel (analyse de données – intermédiaire)<br>
+    PowerPoint (avancé)<br>
+    Power BI (notions)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#02</span>
+  <h3>Suite Adobe – Graphisme</h3>
+  <p>
+    Photoshop (avancé)<br>
+    Illustrator (intermédiaire)<br>
+    InDesign (notions)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#03</span>
+  <h3>Vidéo & Motion Design</h3>
+  <p>
+    Premiere Pro (intermédiaire)<br>
+    After Effects (notions)<br>
+    Color grading (notions)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#04</span>
+  <h3>3D & Mockups</h3>
+  <p>
+    Adobe Dimension (intermédiaire)<br>
+    Mockups produits (avancé)<br>
+    Visualisation 3D (notions)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#05</span>
+  <h3>UX / UI Design</h3>
+  <p>
+    Figma (avancé)<br>
+    Wireframes & prototypage (avancé)<br>
+    Design thinking (intermédiaire)<br>
+    Tests UX (notions)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#06</span>
+  <h3>CMS & No-Code</h3>
+  <p>
+    WordPress / Elementor (avancé)<br>
+    Webflow (intermédiaire)<br>
+    Bubble (notions)<br>
+    Gestion de contenu web (avancé)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#07</span>
+  <h3>Marketing Digital</h3>
+  <p>
+    SEO / SEA (intermédiaire)<br>
+    Google Ads (intermédiaire)<br>
+    Stratégie de contenu (intermédiaire)<br>
+    Call-to-action & optimisation conversion (avancé)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#08</span>
+  <h3>Analytics & Data Marketing</h3>
+  <p>
+    Google Analytics (intermédiaire)<br>
+    Google Tag Manager (notions)<br>
+    KPI & reporting (intermédiaire)<br>
+    Data-driven marketing (notions)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#09</span>
+  <h3>Développement Web & Social Media</h3>
+  <p>
+    HTML (avancé)<br>
+    CSS (avancé)<br>
+    JavaScript (intermédiaire)<br>
+    Responsive design (avancé)<br>
+    Community management (avancé)<br>
+    Création de contenus digitaux (avancé)<br>
+    Analyse de KPI's (intermédiaire)<br>
+    Meta Ads / Facebook & Instagram Ads (avancé)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#10</span>
+  <h3>Data & Analyse</h3>
+  <p>
+    Python (intermédiaire)<br>
+    SQL (intermédiaire)<br>
+    Data visualisation (intermédiaire)<br>
+    Web scraping (notions)<br>
+    Machine learning (notions)<br>
+    Deep learning (notions)<br>
+    Analyse de données (intermédiaire)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#11</span>
+  <h3>Optimisation UX / Conversion</h3>
+  <p>
+    A/B testing (notions)<br>
+    Parcours utilisateur (intermédiaire)<br>
+    Ergonomie web (intermédiaire)<br>
+    Optimisation des conversions (intermédiaire)
+  </p>
+</div>
+
+<div class="skill-card">
+  <span class="skill-number">#12</span>
+  <h3>Gestion de projets digitaux</h3>
+  <p>
+    Cahier des charges (intermédiaire)<br>
+    Gestion de projet web (intermédiaire)<br>
+    Travail en équipe (avancé)<br>
+    Méthodes agiles (notions)
+  </p>
+</div>
+  </section>
+
+
+<section class="apropos" id="apropos">
+  <div class="apropos-title">
+    <div class="stacked-title">
+      <div class="stack title-top">À propos</div>
+      <div class="stack title-bottom">de moi</div>
+    </div>
+  </div>
+
+
+  <div class="apropos-container">
+
+    <!-- PHOTO -->
+    <div class="apropos-photo">
+      <img src="photos/photo_cv.jpg" alt="Photo de Asandratra Ny Tsiry">
+    </div>
+  
+    <!-- TEXTE -->
+    <div class="apropos-content">
+  
+      <h3>Qui suis-je ?</h3>
+  
+      <p class="apropos-intro">
+        Passionné par le digital,
+        je conçois des expériences numériques qui allient esthétique, stratégie et efficacité.
+        Mon objectif est d’aider les marques et les entreprises à renforcer leur présence
+        en ligne grâce à des solutions créatives et adaptées à leurs besoins.
+      </p>
+  
+      <h3>Mes expériences professionnelles</h3>
+
+      <div class="timeline">
+        <a href="https://sport.umontpellier.fr//" class="timeline-link"
+          class="timeline-link" 
+          target="_blank" 
+          rel="noopener noreferrer">
+          <div class="timeline-item">
+          <span class="timeline-date">Jan 2026 - à ce jour</span>
+          <img src="photos/logos/suaps.png" style="width:70%; height:70%;" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Chargé de communication</h4>
+            <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Stratégie de communication, gestion du calendrier éditorial, community management, animation des réseaux sociaux, création de contenus multimédias (graphisme, photo, vidéo, audiovisuel), rédaction de contenus web, habillage et mise à jour de sites vitrines, refonte de site web, support client et accompagnement des usagers, digitalisation des services, analyse de KPI’s et reporting, gestion de l’identité visuelle et éditoriale.</p>
+          </div>
+        </div>
+      </a>
+
+        <a href="https://www.citroen.fr/?gclid=90b52be5c3dd122a187c42542605b52a&gclsrc=3p.ds&msclkid=90b52be5c3dd122a187c42542605b52a&utm_source=bing&utm_medium=cpc&utm_campaign=BD~N%2FA_CN~Marque%20Pure_MK~FR_MB~AC_CAT~VN_CX~ON_CH~PSD_FF~N%2FA_FS~L_ID~N%2FA&utm_term=citroen&utm_content=PR~ACRG_AU~I_DC~N%2FA_GL~GC_PK~UL_PB~MICRO_TG~SWKW_SO~N%2FA_BB~B2C_AD~SCH_AG~Marque%20Pure_CA~SEM_ST~BATEXT_KT~N%2FA_MT~MULT_LG~FR_FF~N%2FA_ID~N%2FA" class="timeline-link"
+          class="timeline-link" 
+          target="_blank" 
+          rel="noopener noreferrer">
+          <div class="timeline-item">
+          <span class="timeline-date">Oct 2023 - Sept 2025</span>
+          <img src="photos/logos/Citroen_2022.png" alt="Orange" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Chargé de marketing digital & administratif</h4>
+            <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Support client, UX/UI : ergonomie digitale, arborescence, web design, refonte site, automatisation marketing & campagnes sms (ciblage), CRM, gestion de comptes clients, webmarketing, SEO/SEA</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://galana.mg/" class="timeline-link"
+          class="timeline-link" 
+          target="_blank" 
+          rel="noopener noreferrer">
+        <div class="timeline-item">
+          <span class="timeline-date">Mars - Septembre 2022</span>
+          <img src="photos/logos/Rubis_Exxon.jpg" alt="Galana" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Assistant en merchandising et communication marketing</h4>
+            <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Stratégies et campagnes marketing (+digital), optimisation des ventes, suivi des stocks, supports visuels + audiovisuels (boutiques, promos, PLV), agencement rayons</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="" class="timeline-link"
+      class="timeline-link" 
+      target="_blank" 
+      rel="noopener noreferrer">
+        <div class="timeline-item">
+          <span class="timeline-date">2021 - 2022</span>
+          <img src="photos/logos/lemurpay.png" alt="Lemurpay" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Responsable marketing digital</h4>
+            <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Stratégies digitales, création de contenu, SEO/SEA (Meta Ads), UX/UI, reporting, veille concurrentielle, marketing automation</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.orange.mg/" class="timeline-link"
+      class="timeline-link" 
+      target="_blank" 
+      rel="noopener noreferrer">
+        <div class="timeline-item">
+          <span class="timeline-date">2021 - 2022</span>
+          <img src="photos/logos/Orange.png" alt="Orange" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Assistant marketing évènementiel</h4>
+            <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Marketing et communication, animation de vente, gestion de stock et PLV</p>
+          </div>
+        </div>
+      </a>
+
+
+
+        <h3>Mon cursus</h3>
+      <a href="https://formations.umontpellier.fr/fr/formations/diplome-universite-niv-form-bac-4-UE/diplome-d-universite-big-data-data-science-et-analyse-des-risques-sous-python-JHVOG40I.html.com/" class="timeline-link"
+        class="timeline-link" 
+        target="_blank" 
+        rel="noopener noreferrer">
+        <div class="timeline-item">
+          <span class="timeline-date">2025 - 2026</span>
+          <img src="photos/logos/um.png" alt="Idrac" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Université de Montpellier</h4>
+            <p style="text-align: justify;hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">DU : Big Data, Data Science et Analyse des Risques sous Python</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="http://cales-prod.univ-montp3.fr/fr/index/offre-de-formation/master-lmd-XB/sciences-humaines-et-sociales-SHS/master-2-information-communication-IAI678M9/parcours-communication-numerique-et-organisations-IT4B48N8.html/" class="timeline-link"
+        class="timeline-link" 
+        target="_blank" 
+        rel="noopener noreferrer">
+        <div class="timeline-item">
+          <span class="timeline-date">2025 - 2026</span>
+          <img src="photos/logos/umpv.PNG" alt="Idrac" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>Université de Montpellier Paul-Valéry</h4>
+            <p style="text-align: justify; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; word-break: normal;">Master 2 : Communication Numériques et Organisations</p>
+          </div>
+        </div>
+      </a>
+
+
+        <a href="https://www.ecoles-idrac.com/" class="timeline-link"
+        class="timeline-link" 
+        target="_blank" 
+        rel="noopener noreferrer">
+        <div class="timeline-item">
+          <span class="timeline-date">2023 - 2025</span>
+          <img src="photos/logos/logoidrac.jpg" alt="Idrac" class="timeline-logo">
+          <div class="timeline-content">
+            <h4>IDRAC Business School</h4>
+            <p style="text-align: justify;">MBA 2 : Marketing digital, data & IA</p>
+          </div>
+        </div>
+      </a>
+    
+         
+      </div>
+  
+    </div>
+  
+  </div>
+
+</body>
+
+<footer class="footer">
+
+  <div class="footer-container">
+  
+  <div class="footer-grid">
+  
+  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=asandratranytsiry@gmail.com" class="footer-item">
+  <div class="footer-icon">
+  <i class="fa-solid fa-envelope"></i>
+  </div>
+  <span>Email</span>
+  </a>
+  
+  <a href="tel:+33758853688" class="footer-item">
+  <div class="footer-icon">
+  <i class="fa-solid fa-phone"></i>
+  </div>
+  <span>07 58 85 36 88</span>
+  </a>
+  
+  <div class="footer-item">
+  <div class="footer-icon">
+  <i class="fa-solid fa-car"></i>
+  </div>
+  <span>Permis B</span>
+  </div>
+  
+  <div class="footer-item">
+  <div class="footer-icon">
+  <i class="fa-solid fa-location-dot"></i>
+  </div>
+  <span>Montpellier, France</span>
+  </div>
+  
+  <a href="https://www.linkedin.com/in/asandratra-ny-tsiry-15b055182/" target="_blank" class="footer-item">
+  <div class="footer-icon">
+  <i class="fa-brands fa-linkedin"></i>
+  </div>
+  <span>LinkedIn</span>
+  </a>
+
+  <i class="fa-solid fa-code footer-bg-icon icon1"></i>
+  <i class="fa-solid fa-chart-line footer-bg-icon icon2"></i>
+  <i class="fa-solid fa-palette footer-bg-icon icon3"></i>
+
+
+  
+
+
+
+  <!-- COPYRIGHT CENTRÉ -->
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Portfolio - Asandratra 2026. Tous droits réservés.
+  </div>
+
+</footer>
+<div class="banner">
+  <div class="track">
+
+    <div class="item">
+      <img src="photos/logos/Citroen_2022.png" alt="logo">
+      <h1>Partenaire</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/galana.png" alt="logo">
+      <h1>Innovation</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/logoidrac.jpg" alt="logo">
+      <h1>Performance</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/Orange.png" alt="logo">
+      <h1>Excellence</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/suaps.png" alt="logo">
+      <h1>Travail d'équipe</h1>
+    </div>
+
+    <!-- Copie pour la boucle infinie -->
+    <div class="item">
+      <img src="photos/logos/Citroen_2022.png" alt="logo">
+      <h1>Partenaire</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/galana.png" alt="logo">
+      <h1>Innovation</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/logoidrac.jpg" alt="logo">
+      <h1>Performance</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/Orange.png" alt="logo">
+      <h1>Excellence</h1>
+    </div>
+
+    <div class="item">
+      <img src="photos/logos/suaps.png" alt="logo">
+      <h1>Travail d'équipe</h1>
+    </div>
+
+  </div>
+</div>
+
+<!-- Dégradé SVG pour le contour de Télécharger CV -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="grad-trace" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#00536F"/>
+      <stop offset="100%" stop-color="#0A6E8A"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+</html>
