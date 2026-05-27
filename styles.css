@@ -797,7 +797,7 @@ body {
   display: block;
 }
 
-/* Overlay cliquable */
+/* Overlay vidéo — toujours présent, change d'état selon lecture */
 .video-overlay {
   position: absolute;
   inset: 0;
@@ -805,17 +805,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.28);
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.25s;
 }
 
-.video-overlay:hover {
-  background: rgba(0, 0, 0, 0.40);
+/* Vidéo en pause : fond semi-transparent + icône visible */
+.video-overlay.paused {
+  background: rgba(0, 0, 0, 0.30);
 }
 
-.video-overlay.hidden {
-  display: none;
+.video-overlay.paused:hover {
+  background: rgba(0, 0, 0, 0.42);
+}
+
+/* Vidéo en lecture : fond transparent, icône cachée */
+.video-overlay.playing {
+  background: transparent;
+}
+
+.video-overlay.playing .video-play-icon {
+  opacity: 0;
+  transform: scale(0.8);
 }
 
 .video-play-icon {
@@ -827,10 +837,10 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
-.video-overlay:hover .video-play-icon {
+.video-overlay.paused:hover .video-play-icon {
   transform: scale(1.12);
 }
 

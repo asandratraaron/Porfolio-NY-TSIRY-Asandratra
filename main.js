@@ -115,7 +115,7 @@ function setupVideoPlayers() {
     const video = wrapper.querySelector('video');
     if (!video) return;
 
-    // Empêche le lecteur natif d'intercepter les clics quand l'overlay est visible
+    // L'overlay gère tous les clics — le lecteur natif ne doit pas intercepter
     video.style.pointerEvents = 'none';
 
     // Génère la miniature depuis une frame de la vidéo
@@ -137,35 +137,43 @@ function setupVideoPlayers() {
       video.currentTime = 0.5;
     }, { once: true });
 
-    // Crée l'overlay "cliquer n'importe où pour lire"
+    // Crée l'overlay permanent (toujours présent, change d'apparence)
     const overlay = document.createElement('div');
-    overlay.className = 'video-overlay';
+    overlay.className = 'video-overlay paused';
     overlay.innerHTML = `<div class="video-play-icon">
       <svg viewBox="0 0 24 24" fill="white" width="40" height="40">
-        <path d="M8 5v14l11-7z"/>
+        <path class="icon-path" d="M8 5v14l11-7z"/>
       </svg>
     </div>`;
     wrapper.appendChild(overlay);
 
-    const showOverlay = () => {
-      overlay.classList.remove('hidden');
-      video.style.pointerEvents = 'none';
+    const iconPath = overlay.querySelector('.icon-path');
+    const PLAY_D  = 'M8 5v14l11-7z';
+    const PAUSE_D = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+
+    const setPlaying = () => {
+      overlay.classList.replace('paused', 'playing');
+      iconPath.setAttribute('d', PAUSE_D);
     };
-    const hideOverlay = () => {
-      overlay.classList.add('hidden');
-      video.style.pointerEvents = 'auto';
+    const setPaused = () => {
+      overlay.classList.replace('playing', 'paused');
+      iconPath.setAttribute('d', PLAY_D);
     };
 
+    // Clic n'importe où sur l'overlay = toggle play/pause
     overlay.addEventListener('click', () => {
-      const p = video.play();
-      if (p) p.catch(() => showOverlay());
+      if (video.paused) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
     });
 
-    video.addEventListener('play',  hideOverlay);
-    video.addEventListener('pause', showOverlay);
+    video.addEventListener('play',  setPlaying);
+    video.addEventListener('pause', setPaused);
     video.addEventListener('ended', () => {
       video.currentTime = 0;
-      showOverlay();
+      setPaused();
     });
   });
 }
