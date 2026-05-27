@@ -111,14 +111,14 @@ function addSwipeToCarousel() {
 addSwipeToCarousel();
 
 function setupVideoPlayers() {
-  const carousel = document.querySelector('.carousel');
-  if (!carousel) return;
-
-  carousel.querySelectorAll('.video-wrapper').forEach(wrapper => {
+  document.querySelectorAll('.video-wrapper').forEach(wrapper => {
     const video = wrapper.querySelector('video');
     if (!video) return;
 
-    // Génère la miniature depuis la première image de la vidéo
+    // Empêche le lecteur natif d'intercepter les clics quand l'overlay est visible
+    video.style.pointerEvents = 'none';
+
+    // Génère la miniature depuis une frame de la vidéo
     let posterCaptured = false;
     const captureFrame = () => {
       if (posterCaptured || video.currentTime < 0.1) return;
@@ -147,12 +147,25 @@ function setupVideoPlayers() {
     </div>`;
     wrapper.appendChild(overlay);
 
-    overlay.addEventListener('click', () => video.play());
-    video.addEventListener('play',   () => overlay.classList.add('hidden'));
-    video.addEventListener('pause',  () => overlay.classList.remove('hidden'));
-    video.addEventListener('ended',  () => {
-      video.currentTime = 0;
+    const showOverlay = () => {
       overlay.classList.remove('hidden');
+      video.style.pointerEvents = 'none';
+    };
+    const hideOverlay = () => {
+      overlay.classList.add('hidden');
+      video.style.pointerEvents = 'auto';
+    };
+
+    overlay.addEventListener('click', () => {
+      const p = video.play();
+      if (p) p.catch(() => showOverlay());
+    });
+
+    video.addEventListener('play',  hideOverlay);
+    video.addEventListener('pause', showOverlay);
+    video.addEventListener('ended', () => {
+      video.currentTime = 0;
+      showOverlay();
     });
   });
 }
