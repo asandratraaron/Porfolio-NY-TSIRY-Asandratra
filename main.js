@@ -110,6 +110,55 @@ function addSwipeToCarousel() {
 
 addSwipeToCarousel();
 
+function setupVideoPlayers() {
+  const carousel = document.querySelector('.carousel');
+  if (!carousel) return;
+
+  carousel.querySelectorAll('.video-wrapper').forEach(wrapper => {
+    const video = wrapper.querySelector('video');
+    if (!video) return;
+
+    // Génère la miniature depuis la première image de la vidéo
+    let posterCaptured = false;
+    const captureFrame = () => {
+      if (posterCaptured || video.currentTime < 0.1) return;
+      posterCaptured = true;
+      const c = document.createElement('canvas');
+      c.width = video.videoWidth || 640;
+      c.height = video.videoHeight || 360;
+      c.getContext('2d').drawImage(video, 0, 0, c.width, c.height);
+      try { video.poster = c.toDataURL('image/jpeg', 0.85); } catch(e) {}
+      video.removeEventListener('seeked', captureFrame);
+      video.currentTime = 0;
+    };
+    video.addEventListener('seeked', captureFrame);
+    video.preload = 'metadata';
+    video.addEventListener('loadedmetadata', () => {
+      video.currentTime = 0.5;
+    }, { once: true });
+
+    // Crée l'overlay "cliquer n'importe où pour lire"
+    const overlay = document.createElement('div');
+    overlay.className = 'video-overlay';
+    overlay.innerHTML = `<div class="video-play-icon">
+      <svg viewBox="0 0 24 24" fill="white" width="40" height="40">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>`;
+    wrapper.appendChild(overlay);
+
+    overlay.addEventListener('click', () => video.play());
+    video.addEventListener('play',   () => overlay.classList.add('hidden'));
+    video.addEventListener('pause',  () => overlay.classList.remove('hidden'));
+    video.addEventListener('ended',  () => {
+      video.currentTime = 0;
+      overlay.classList.remove('hidden');
+    });
+  });
+}
+
+setupVideoPlayers();
+
 function positionButtonsMobile() {
   const buttons = document.querySelector('.buttons');
   const carousel = document.querySelector('.carousel');
