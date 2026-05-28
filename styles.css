@@ -781,6 +781,19 @@ body {
   object-fit:cover;
 }
 
+/* Logos dans le contenu des slides */
+.slide-logo {
+  width: 110px;
+  height: auto;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .slide-logo {
+    width: 64px;
+  }
+}
+
 /* Wrapper vidéo (remplace l'inline style) */
 .video-wrapper {
   position: relative;
@@ -797,36 +810,23 @@ body {
   display: block;
 }
 
-/* Overlay vidéo — toujours présent, change d'état selon lecture */
+/* Overlay vidéo — 3 états : paused / playing / playing+controls-hidden */
 .video-overlay {
   position: absolute;
   inset: 0;
   z-index: 10;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.25s;
+  user-select: none;
 }
 
-/* Vidéo en pause : fond semi-transparent + icône visible */
-.video-overlay.paused {
-  background: rgba(0, 0, 0, 0.30);
-}
-
-.video-overlay.paused:hover {
-  background: rgba(0, 0, 0, 0.42);
-}
-
-/* Vidéo en lecture : fond transparent, icône cachée */
-.video-overlay.playing {
-  background: transparent;
-}
-
-.video-overlay.playing .video-play-icon {
-  opacity: 0;
-  transform: scale(0.8);
-}
+.video-overlay.paused        { background: rgba(0,0,0,0.30); }
+.video-overlay.paused:hover  { background: rgba(0,0,0,0.42); }
+.video-overlay.playing       { background: transparent; }
 
 .video-play-icon {
   width: 72px;
@@ -836,12 +836,71 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  transition: transform 0.2s, opacity 0.25s;
 }
 
-.video-overlay.paused:hover .video-play-icon {
-  transform: scale(1.12);
+.video-overlay.playing .video-play-icon  { opacity: 0; pointer-events: none; }
+.video-overlay.paused:hover .video-play-icon { transform: scale(1.12); }
+
+/* Barre de contrôles (seek + temps) */
+.video-controls-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 14px 8px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.65));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.3s;
+}
+
+.video-overlay.controls-hidden .video-controls-bar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-seek {
+  flex: 1;
+  height: 4px;
+  cursor: pointer;
+  accent-color: #00536F;
+  border-radius: 2px;
+}
+
+.video-time {
+  color: rgba(255,255,255,0.9);
+  font-size: 11px;
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+.video-skip {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.9);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: monospace;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: background 0.15s;
+}
+.video-skip:hover  { background: rgba(255,255,255,0.18); }
+.video-skip:active { background: rgba(255,255,255,0.30); }
+
+@media (max-width: 768px) {
+  .video-play-icon          { width: 88px; height: 88px; }
+  .video-play-icon svg      { width: 52px; height: 52px; }
+  .video-controls-bar       { padding: 14px 12px 10px; }
+  .video-seek               { height: 5px; }
+  .video-time               { font-size: 10px; }
+  .video-skip               { font-size: 10px; padding: 3px 5px; }
 }
 
 .content{

@@ -115,7 +115,7 @@ function setupVideoPlayers() {
     const video = wrapper.querySelector('video');
     if (!video) return;
 
-    // L'overlay gère tous les clics — le lecteur natif ne doit pas intercepter
+    video.removeAttribute('controls');
     video.style.pointerEvents = 'none';
 
     // Génère la miniature depuis une frame de la vidéo
@@ -137,36 +137,148 @@ function setupVideoPlayers() {
       video.currentTime = 0.5;
     }, { once: true });
 
-    // Crée l'overlay permanent (toujours présent, change d'apparence)
+    // Overlay avec icône centrale + barre de contrôles en bas
     const overlay = document.createElement('div');
     overlay.className = 'video-overlay paused';
-    overlay.innerHTML = `<div class="video-play-icon">
-      <svg viewBox="0 0 24 24" fill="white" width="40" height="40">
-        <path class="icon-path" d="M8 5v14l11-7z"/>
-      </svg>
-    </div>`;
+    overlay.innerHTML = `
+      <div class="video-play-icon">
+        <svg viewBox="0 0 24 24" fill="white" width="40" height="40">
+          <path class="icon-path" d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <div class="video-controls-bar">
+        <button class="video-skip skip-back">−10</button>
+        <input type="range" class="video-seek" min="0" max="100" value="0" step="0.1">
+        <button class="video-skip skip-fwd">+10</button>
+        <span class="video-time">0:00</span>
+      </div>`;
     wrapper.appendChild(overlay);
 
-    const iconPath = overlay.querySelector('.icon-path');
-    const PLAY_D  = 'M8 5v14l11-7z';
-    const PAUSE_D = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+    const iconPath  = overlay.querySelector('.icon-path');
+    const seekBar   = overlay.querySelector('.video-seek');
+    const timeLbl   = overlay.querySelector('.video-time');
+    const skipBack  = overlay.querySelector('.skip-back');
+    const skipFwd   = overlay.querySelector('.skip-fwd');
+    const PLAY_D   = 'M8 5v14l11-7z';
+    const PAUSE_D  = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+    let hideTimer  = null;
 
-    const setPlaying = () => {
-      overlay.classList.replace('paused', 'playing');
-      iconPath.setAttribute('d', PAUSE_D);
-    };
-    const setPaused = () => {
-      overlay.classList.replace('playing', 'paused');
+    function fmtTime(s) {
+      const m   = Math.floor(s / 60);
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return `${m}:${sec}`;
+    }
+
+    function showControls() {
+      overlay.classList.remove('controls-hidden');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        if (!video.paused) overlay.classList.add('controls-hidden');
+      }, 3000);
+    }
+
+    function setPaused() {
+      overlay.classList.remove('playing', 'controls-hidden');
+      overlay.classList.add('paused');
       iconPath.setAttribute('d', PLAY_D);
-    };
+      clearTimeout(hideTimer);
+    }
 
-    // Clic n'importe où sur l'overlay = toggle play/pause
-    overlay.addEventListener('click', () => {
+    function setPlaying() {
+      overlay.classList.remove('paused');
+      overlay.classList.add('playing');
+      iconPath.setAttribute('d', PAUSE_D);
+      showControls();
+    }
+
+    // Logique 3 états (partagée entre clic souris et tap mobile)
+    const handleTap = () => {
       if (video.paused) {
         video.play().catch(() => {});
+      } else if (!overlay.classList.contains('controls-hidden')) {
+        clearTimeout(hideTimer);
+        overlay.classList.add('controls-hidden');
       } else {
         video.pause();
       }
+    };
+
+    // Desktop : clic souris normal
+    overlay.addEventListener('click', handleTap);
+
+    // Mobile : simple tap → handleTap, double tap gauche/droite → ±10 s
+    let tapTimer    = null;
+    let lastTapTime = 0;
+    let lastTapSide = null;
+
+    overlay.addEventListener('touchend', (e) => {
+      // Laisser les contrôles du bas gérer leurs propres touches
+      if (e.target.closest('.video-controls-bar')) return;
+      e.preventDefault(); // empêche le clic synthétique
+
+      const now   = Date.now();
+      const touch = e.changedTouches[0];
+      const rect  = overlay.getBoundingClientRect();
+      const side  = touch.clientX > rect.left + rect.width / 2 ? 'right' : 'left';
+
+      if (now - lastTapTime < 300 && lastTapSide === side) {
+        // Double tap → ±10 s
+        clearTimeout(tapTimer);
+        lastTapTime = 0;
+        video.currentTime = side === 'right'
+          ? Math.min(video.duration || 0, video.currentTime + 10)
+          : Math.max(0, video.currentTime - 10);
+        showControls();
+      } else {
+        // Premier tap : attendre de voir si un second suit
+        lastTapTime = now;
+        lastTapSide = side;
+        clearTimeout(tapTimer);
+        tapTimer = setTimeout(() => {
+          handleTap();
+          lastTapTime = 0;
+        }, 300);
+      }
+    }, { passive: false });
+
+    // Survol souris (desktop) : afficher/cacher les contrôles
+    overlay.addEventListener('mouseenter', () => {
+      if (!video.paused) {
+        clearTimeout(hideTimer);
+        overlay.classList.remove('controls-hidden');
+      }
+    });
+    overlay.addEventListener('mouseleave', () => {
+      if (!video.paused) overlay.classList.add('controls-hidden');
+    });
+
+    // Boutons −10 / +10
+    skipBack.addEventListener('click', (e) => {
+      e.stopPropagation();
+      video.currentTime = Math.max(0, video.currentTime - 10);
+      showControls();
+    });
+    skipFwd.addEventListener('click', (e) => {
+      e.stopPropagation();
+      video.currentTime = Math.min(video.duration || 0, video.currentTime + 10);
+      showControls();
+    });
+
+    // Barre de progression : seek sans déclencher le clic overlay
+    seekBar.addEventListener('click', (e) => e.stopPropagation());
+    seekBar.addEventListener('input', (e) => {
+      e.stopPropagation();
+      if (video.duration) {
+        video.currentTime = (seekBar.value / 100) * video.duration;
+      }
+      showControls();
+    });
+
+    // Mise à jour de la barre et du chrono en cours de lecture
+    video.addEventListener('timeupdate', () => {
+      if (!video.duration) return;
+      seekBar.value = (video.currentTime / video.duration) * 100;
+      timeLbl.textContent = fmtTime(video.currentTime);
     });
 
     video.addEventListener('play',  setPlaying);
